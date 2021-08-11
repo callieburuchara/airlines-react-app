@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 const TableHeaderRow = ({ columns }) => {
   return (
@@ -20,7 +21,9 @@ const TableData = ({ rows, columns, format }) => {
 }
 
 const Table = ({ columns, rows, format, perPage }) => { 
-  const [start, setStart] = useState(0)
+  const start = useSelector(state => state.start)
+  const dispatch = useDispatch()
+
   const prevDisabled = () => start === 0
   const nextDisabled = () => start === rows.length - perPage
 
@@ -30,9 +33,9 @@ const Table = ({ columns, rows, format, perPage }) => {
 
   const handlePageButtons = (event) => {
     if (event.target.innerHTML.includes('Previous')) {
-      setStart(start - perPage)
+      dispatch({type:'DECREASE_START', amount: perPage})
     } else {
-      setStart(start + perPage)
+      dispatch({type:'INCREASE_START', amount: perPage})
     }
   }
 

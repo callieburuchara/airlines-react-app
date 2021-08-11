@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import './App.css';
 import DATA from './data.js'
 import Table from './components/Table'
+import Select from './components/Select'
 
 const columns = [
   {name: 'Airline', property: 'airline'},
@@ -15,18 +17,22 @@ const formatValue = (property, value) => {
   } else {
     return DATA.getAirportByCode(value)
   }
-}
-  
+}  
 
-const App = () => (
-  <div className="app">
-  <header className="header">
-    <h1 className="title">Airline Routes</h1>
-  </header>
-  <section>
-    <Table className="routes-table" columns={columns} rows={DATA.routes} format={formatValue} perPage={25} />
-  </section>
-</div>
-)
+const App = () => {
+
+  return (
+    <div className="app">
+      <header className="header">
+        <h1 className="title">Airline Routes</h1>
+      </header>
+      <section>
+        <Select options={DATA.airlines} allTitle="All Airlines" name="airline" valueKey="id" titleKey="name" />
+    
+        <Table className="routes-table" columns={columns} rows={useSelector(state => state.filteredData)} format={formatValue} perPage={25} />
+      </section>
+    </div>
+  )
+}
 
 export default App;
