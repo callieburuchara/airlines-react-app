@@ -24,7 +24,7 @@ const App = () => (
     <h1 className="title">Airline Routes</h1>
   </header>
   <section>
-    <Table className="routes-table" columns={columns} rows={DATA.routes.slice(0, 10)} format={formatValue}/>
+    <Table className="routes-table" columns={columns} rows={DATA.routes} format={formatValue} perPage={25} />
   </section>
 </div>
 )
