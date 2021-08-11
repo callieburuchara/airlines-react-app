@@ -1,11 +1,12 @@
 import React from 'react'
+import DATA from '../data.js'
 
 const TableRow = ({ route }) => {
   return (
     <tr>
-      <td>{route.airline}</td>
-      <td>{route.src}</td>
-      <td>{route.dest}</td>
+      <td>{DATA.getAirlineById(route.airline)}</td>
+      <td>{DATA.getAirportByCode(route.src)}</td>
+      <td>{DATA.getAirportByCode(route.dest)}</td>
     </tr>
   )
 }
