@@ -20,6 +20,7 @@ const formatValue = (property, value) => {
 }  
 
 const App = () => {
+  const dispatch = useDispatch()
 
   return (
     <div className="app">
@@ -29,6 +30,7 @@ const App = () => {
       <section><br/><br/>
         <Select options={DATA.airlines} allTitle="All Airlines" name="airline" valueKey="id" titleKey="name" leadingText="Show routes on"/>
         <Select options={DATA.airports} allTitle="All Airports" name="airport" valueKey="code" titleKey="name" leadingText=" flying in or out of " />
+        <button onClick={() => dispatch({type: 'RESET'})}>Show All Routes</button>
     
         <br/><br/>
         <Table className="routes-table" columns={columns} rows={useSelector(state => state.filteredData)} format={formatValue} perPage={25} />
