@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import DATA from './data.js'
+import Table from './components/Table'
+console.log(DATA.routes[0])
 
 const App = () => (
   <div className="app">
@@ -10,6 +13,7 @@ const App = () => (
     <p>
       Welcome to the app!
     </p>
+    <Table routes={DATA.routes}/>
   </section>
 </div>
 )
