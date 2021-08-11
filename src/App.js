@@ -2,7 +2,21 @@ import React, { Component } from 'react';
 import './App.css';
 import DATA from './data.js'
 import Table from './components/Table'
-console.log(DATA.routes[0])
+
+const columns = [
+  {name: 'Airline', property: 'airline'},
+  {name: 'Source Airport', property: 'src'},
+  {name: 'Destination Airport', property: 'dest'},
+]
+
+const formatValue = (property, value) => {
+  if (property === 'airline') {
+    return DATA.getAirlineById(value) 
+  } else {
+    return DATA.getAirportByCode(value)
+  }
+}
+  
 
 const App = () => (
   <div className="app">
@@ -10,7 +24,7 @@ const App = () => (
     <h1 className="title">Airline Routes</h1>
   </header>
   <section>
-    <Table routes={DATA.routes}/>
+    <Table className="routes-table" columns={columns} rows={DATA.routes.slice(0, 10)} format={formatValue}/>
   </section>
 </div>
 )

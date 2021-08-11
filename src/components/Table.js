@@ -1,30 +1,30 @@
 import React from 'react'
-import DATA from '../data.js'
 
-const TableRow = ({ route }) => {
+const TableHeaderRow = ({ columns }) => {
   return (
     <tr>
-      <td>{DATA.getAirlineById(route.airline)}</td>
-      <td>{DATA.getAirportByCode(route.src)}</td>
-      <td>{DATA.getAirportByCode(route.dest)}</td>
+      {columns.map(header => <th>{header.name}</th>)}
     </tr>
   )
 }
 
-const Table = ({ routes }) => {
+const TableData = ({ rows, columns, format }) => {
+  return (rows.map(row => {
+    const dataCells = columns.map(column => {
+      const section = column.property
+      return <td>{format(section, row[section])}</td>
+    })
+    return <tr>{dataCells}</tr>
+  })
+ )
+}
+
+const Table = ({ columns, rows, format }) => { 
   return (
     <table>
       <tbody>
-        <tr>
-          <th>Airline</th>
-          <th>Source Airport</th>
-          <th>Destination Airport</th>
-        </tr>
-
-        {routes.map(route => 
-          <TableRow route={route} />
-        )}
-    
+        <TableHeaderRow columns={columns} />
+        <TableData columns={columns} rows={rows} format={format} />
       </tbody>
     </table>
   )
