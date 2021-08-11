@@ -21,36 +21,19 @@ const TableData = ({ rows, columns, format }) => {
 
 const Table = ({ columns, rows, format, perPage }) => { 
   const [start, setStart] = useState(0)
-  const [prevDisabled, setPrevDisabled] = useState(true)
-  const [nextDisabled, setNextDisabled] = useState(false)
+  const prevDisabled = () => start === 0
+  const nextDisabled = () => start === rows.length - perPage
 
   const rowsToDisplay = () => {
     return rows.slice(start, start + perPage)
   }
 
-  const handleDisablings = () => {
-    if (start > 0 && (start + perPage) < 850) {
-      setPrevDisabled(false)
-      setNextDisabled(false)
-     } else if (start <= 0) {
-       setPrevDisabled(true)
-     } else {
-       setNextDisabled(true)
-     }
-  }
-
   const handlePageButtons = (event) => {
-    //console.log(event.target.innerHTML)
     if (event.target.innerHTML.includes('Previous')) {
       setStart(start - perPage)
     } else {
-      console.log(start, perPage)
       setStart(start + perPage)
-      console.log("NEXT BEING CLICKED", start)
     }
-
-    console.log("DISABLE", start)
-    handleDisablings()
   }
 
   return (
@@ -64,8 +47,8 @@ const Table = ({ columns, rows, format, perPage }) => {
       <br/>
 
      <footer>Showing {start + 1}-{start + perPage} of {rows.length} routes.</footer>
-     <button disabled={prevDisabled} onClick={(event) => handlePageButtons(event)}>Previous Page</button>
-     <button disabled={nextDisabled} onClick={(event) => handlePageButtons(event)}>Next Page</button>
+     <button disabled={prevDisabled()} onClick={(event) => handlePageButtons(event)}>Previous Page</button>
+     <button disabled={nextDisabled()} onClick={(event) => handlePageButtons(event)}>Next Page</button>
     </>
   )
 }
