@@ -11,25 +11,24 @@ const findAirNumber = (event) => {
   return event.target.options[id].getAttribute('data')
 }
 
-
-const Select = ({ options, allTitle, name, valueKey, titleKey, leadingText }) => {
+const Select = ({ options, currentValue, name, valueKey, titleKey, leadingText }) => {
   const dispatch = useDispatch()
 
   const chooseHandler = (name, event) => {
     if (name === 'airline') {
-      dispatch({type: 'FILTER_BY_AIRLINE', id: findAirNumber(event)})
+      dispatch({type: 'FILTER_BY_AIRLINE', id: findAirNumber(event), name: event.target.value})
     } else {
-      dispatch({type: 'FILTER_BY_AIRPORT', code: findAirNumber(event)})
+      dispatch({type: 'FILTER_BY_AIRPORT', code: findAirNumber(event), name: event.target.value})
     }
   }
 
   return (
     <>
     {leadingText}
-        <select name={name} onChange={(event) => chooseHandler(name, event)}>
-          <option name={allTitle}>{allTitle}</option>
-          {options.map(air => <option name={air[titleKey]} data={air[valueKey]}>{air[titleKey]}</option>)}}
-        </select>
+      <select name={name} value={currentValue} onChange={(event) => chooseHandler(name, event)}>
+        <option name={currentValue}>{currentValue}</option>
+        {options.map(air => <option name={air[titleKey]} data={air[valueKey]}>{air[titleKey]}</option>)}}
+      </select>
     </>
   )
 }

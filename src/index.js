@@ -11,8 +11,8 @@ import dataReducer from './reducers/dataReducer'
 import startPositionReducer from './reducers/startPositionReducer'
 
 const allReducers = {
-  filteredAirlines: airlineReducer,
-  filteredAirports: airportReducer,
+  filteredAirline: airlineReducer,
+  filteredAirport: airportReducer,
   filteredData: dataReducer,
   start: startPositionReducer,
 }
